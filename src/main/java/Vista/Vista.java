@@ -2,11 +2,13 @@
 package Vista;
 
 
+import Controlador.ControladorRegisConsult;
 import java.util.Scanner; //se importa calses reservados de java para utilizar para la captura de los datos que ingresa el usuario
 import Modelo.*; //se importa el del paquete modelo las clases para poder realizar el llamado a cada una por medio de la creacion de objetos
 
 //se crea la  Vista, la cual sera ejecutara todos los mesaajes que se mostraran al usuario
 public class Vista {
+    ControladorRegisConsult controlador=  new ControladorRegisConsult();  //creamos un objeto de la clase ocntrolador para poder pasar los datos a registrar en la lista
     
     //se declaran 3 objetos a nivel global de las clases Lanzadora, No_tripulada y Tripulada, los cuales serviran para hacer llamados a los distintos metodos de cada una
     private Lanzadora lanzadora;
@@ -93,13 +95,25 @@ public class Vista {
            this.inicial(); // ejecuta nuevamente el metodo llamado inicial()
        }
        
+       
        //al terminar el proceso de restigro de la nave, el programa vuelve a preguntar si desea crear una nueva nave, indica si=1 o no=2
        System.out.println(" ");
-       System.out.println("Por favor indique si desea CREAR una nueva nave, digite 1 para continuar o 2 para cancelar.");
+       System.out.println("Por favor indique si desea CREAR una nueva nave, digite 1 para continuar, 2 para consultar una nave, \n3 para consultar todas las naves en el inventario, 4 para salir del tistema.");
+       opcion=new Scanner(System.in).nextInt();
        
        //se crea una sentencia if para valdiar la opcion ingresa por el suario
-       if(new Scanner(System.in).nextInt()==1){  //si lo que el digita es 1 se hace el llamado al metodo inicial y vuelve a empezar el proceso de registro
+       if(opcion==1){  //si lo que el digita es 1 se hace el llamado al metodo inicial y vuelve a empezar el proceso de registro
            this.inicial();
+       }else if(opcion==2){  //al seleccionar esta opcion entrara a pedir que ingrese el codigo de la nave a consultar
+           
+           System.out.println("Por favor ingrese el ID de la nave a consultar");
+           System.out.println(controlador.ConsultarNave(new Scanner(System.in).nextInt()));  // se invoca el metodo consultar naves con el objeto creado, para consultar la nave correspondiente al id ingresado
+           
+       }else if(opcion==3){
+           
+           System.out.println("Se muestra un listado de todas las naves existentes en el inventario\n");        
+           System.out.println(controlador.ConsultarNaves());  // genera una consulta general de todas las naves que hay en el inventario
+           
        }else{ //sino entonces el programa termina
            System.exit(0);
        }

@@ -2,7 +2,11 @@
 package Modelo;
 
 //se crea una clase hija que hereda o extiende la clase padre Nave, la cual implementa los metodos abstractos y heredas los atributos de la clase padre
+
+import Controlador.ControladorRegisConsult;
+
 public class Tripulada extends Nave{
+    ControladorRegisConsult controlador=  new ControladorRegisConsult();  //creamos un objeto de la clase ocntrolador para poder pasar los datos a registrar en la lista
     
     //se declara un atributo propio de la clase hija como lo es cantidad_personas
     private int cantidad_personas;
@@ -31,7 +35,10 @@ public class Tripulada extends Nave{
      //se implementa el metodo abstracto heredado de la clase padre
     public String Registrar(){
         
+         //con el objeto global creado le pasamos los datos que se registraran en la lista
+        controlador.Registrar("Modelo: "+this.getModelo().toUpperCase()+"  |  Peso (kg) : "+this.getPeso()+"  |  Cantidad de personas: "+this.getCantidad_personas());
+        
         //retorna un valor de tipo String, el cual contendra un mensaje indicando que el proceso se realizo con exito y mostrara los datos capturados por consola
-        return "La Navese ha Registrado con los siguientes datos: \n\nModelo: "+this.getModelo().toUpperCase()+"\nPeso (kg) : "+this.getPeso()+"\nCantidad de personas: "+this.getCantidad_personas()+"\n\n";
+        return "La Nave se ha Registrado con los siguientes datos: \n\nModelo: "+this.getModelo().toUpperCase()+"\nPeso (kg) : "+this.getPeso()+"\nCantidad de personas: "+this.getCantidad_personas()+"\n\n";
     }
 }
